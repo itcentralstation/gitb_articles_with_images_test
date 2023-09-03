@@ -20,15 +20,22 @@ RSpec.describe Posting, type: :model do
       'src' => 'https://images.peerspot.com/image/upload/c_limit,f_auto,q_auto,w_550/bvvrzbv97pp5srg612le16pv99rg.jpg',
       'data-image' => '27c79574-7aa7-4eea-8515-d2a128698803.jpg'
     }
+    # Use fake images instead of 'https://images.peerspot.com/image/upload/c_limit,f_auto,q_auto,w_550/bvvrzbv97pp5srg612le16pv99rg.jpg'
+    #  because if it's will be deleted - you migth have a problems
 
     let(:posting) { insert :posting, body: posting_body, type: 'Article' }
 
     it 'should be an Article model' do
       expect(posting.type).to eq('Article')
       expect(posting.body).to eq(posting_body)
+      # What for this test is needed
     end
     it 'should return image attributes from body' do
+      # something wrong with this test
+      # this test not so fully
       expect(posting.article_with_image).to eq(response)
     end
   end
 end
+# Need to test all 'return' cases for article_with_image method
+# Need to create describe for posting_image_params and create tests for it
