@@ -32,3 +32,7 @@ RSpec.describe Posting, type: :model do
     end
   end
 end
+
+# missing case when posting body has no figure tag
+# missing case when posting body has no image tag
+# would be great to have test for covering the case of multiple images in the posting
