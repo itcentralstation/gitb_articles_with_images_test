@@ -23,10 +23,18 @@ RSpec.describe Posting, type: :model do
 
     let(:posting) { insert :posting, body: posting_body, type: 'Article' }
 
+  # the following test is a useless one that has no value.
+  # Data was literally mocked at upon `posting` creation so it will always pass
+  # And to be honest, I have never seen a creation using `insert` so I have no clue whether it creates an instance of Posting model or not
+  # I have always worked with factory instance creation, so that is why I am not sure here
+
     it 'should be an Article model' do
       expect(posting.type).to eq('Article')
       expect(posting.body).to eq(posting_body)
     end
+# Also I would add more tests to check the behaviour in case if type is not Model or there is no image, or there is a several 
+# images and it returns the first one
+
     it 'should return image attributes from body' do
       expect(posting.article_with_image).to eq(response)
     end
