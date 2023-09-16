@@ -1,6 +1,17 @@
+// So, as we already know this .article_with_image will return strings in some cases, so the condition is broken.
+// Also I do not see where is this posting varialbe is coming from, it does not use @ in the beginning, it is not locally declared
+// and if this code is not an assumption but an actual one, it won't work.
+//
+// And I do not really understand where from this method recieves that body attribute
+// Also in some cases when image has strings with error, or nils in it, 
+// data-image="#{image['data-image']}" won't be able to retrieve something data-image="#{image['data-image']}"
+// Overall assumption -> this code will work ONLY if the best 100% criteria is met which is not always the case.
+// It would be returned back to the development stage.
+
 -image = posting.article_with_image
 -if image
   figure id="img_#{posting.id}"
     img src="#{image['src']}" alt="#{image['alt'] || posting.title}" data-image="#{image['data-image']}"
 .teaser id="teaser_#{posting.id}"
   => posting_snippet(posting) # uses HTML_Truncator gem and calls .html_safe on the output
+
