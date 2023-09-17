@@ -1,34 +1,20 @@
 class Posting < ApplicationRecord
 
-  belongs_to :author,    class_name: 'User', foreign_key: 'user_id'
-  belongs_to :editor,    class_name: 'User', foreign_key: 'editor_id'
+  belongs_to :author, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :editor, class_name: 'User', foreign_key: 'editor_id'
   
   def article_with_image
+    # why we return type here for non-article postings? should be just return '' or nil.
+    # This will fail on render partial.
     return type if type != 'Article'
 
-    figure_start = body.index('<figure')
-    figure_end = body.index('</figure>')
-    return "#{figure_start}_#{figure_end}" if figure_start.nil? || figure_end.nil?
+    # Not sure why app built that way that we store/transit images within strings/params
+    # images must be covered as separate entities with PaperClip or any other image management gem/tool
 
-    image_tags = body[figure_start...figure_end + 9]
-    return 'not include <img' unless image_tags.include?('<img')
+    # Imagine this is parsed somewhere so we need to extract images from string.
+    # I'd implement some ImageExctractor service class which will care of parsing of images
+    # and return image_tags
 
-    posting_image_params(image_tags)
-  end
-
-  private
-
-  def posting_image_params(html)
-    tag_parse = -> (image, att) { image.match(/#{att}="(.+?)"/) }
-    tag_attributes = {}
-
-    %w[alt src data-image].each do |attribute|
-      data = tag_parse.(html, attribute)
-      unless data.nil?
-        tag_attributes[attribute] = data[1] unless data.size < 2
-      end
-    end
-    # tag_parse
-    tag_attributes
+    ImageExtractor.new(body).call
   end
 end
