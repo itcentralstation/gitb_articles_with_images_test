@@ -1,4 +1,4 @@
--image = posting.article_with_image
+-image = posting.respond_to?(:article_with_image) ? posting.article_with_image : nil
 -if image
   figure id="img_#{posting.id}"
     img src="#{image['src']}" alt="#{image['alt'] || posting.title}" data-image="#{image['data-image']}"

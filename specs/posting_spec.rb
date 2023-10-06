@@ -10,7 +10,7 @@ RSpec.describe Posting, type: :model do
                     "your feedback below<strong>!</strong></p>\r\n<figure><img src=\"https://images."\
                     "peerspot.com/image/upload/c_limit,f_auto,q_auto,w_550/bvvrzbv97pp5srg612"\
                     "le16pv99rg.jpg\" data-image=\"27c79574-7aa7-4eea-8515-d2a128698803.jpg\" alt=\"Spotlight"\
-                    " #3 - a community digest\"></figure>\r\n<p><strong><br></strong></p>\r\n<h2>Trending"\
+                    " #3 - a community digest\"/></figure>\r\n<p><strong><br></strong></p>\r\n<h2>Trending"\
                     "</h2>\r\n<ul>\r\n<li><a target=\"_blank\" href=\"https://www.peerspot.com/quest"\
                     "ions/looking-for-an-identity-and-access-management-product-for-an-energy-and-utility-organ"\
                     "ization\">Looking for an Identity and Access Management product for an energy and utility organization</a></li>"
