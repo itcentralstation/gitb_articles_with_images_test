@@ -2,7 +2,8 @@ class Posting < ApplicationRecord
 
   belongs_to :author,    class_name: 'User', foreign_key: 'user_id'
   belongs_to :editor,    class_name: 'User', foreign_key: 'editor_id'
-  
+
+  # should move this into 'Article' model
   def article_with_image
     return type if type != 'Article'
 
