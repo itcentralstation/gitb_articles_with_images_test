@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Posting, type: :model do
   describe '.article_with_image' do
+    # need to add context for not happy case and specs for other models because this one is cover only Article one
     posting_body =  "<p>Hi dear community members,</p>\r\n<p><strong>Spotlight #3</strong>"\
                     "is our latest bi-weekly community digest for you. It covers Cybersecurity, "\
                     "IT and DevOps topics<strong>. </strong>Check it out, join discussions and share "\

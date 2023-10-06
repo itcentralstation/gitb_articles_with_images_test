@@ -1,4 +1,7 @@
 -image = posting.article_with_image
+/ image var can be present but contain not necessary data according to guards in 'article_with_image' model method
+/ I guess this code works only in happy case
+/ but it will crashes when 'body' does not contain correct structure of tags
 -if image
   figure id="img_#{posting.id}"
     img src="#{image['src']}" alt="#{image['alt'] || posting.title}" data-image="#{image['data-image']}"
