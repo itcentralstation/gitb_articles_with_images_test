@@ -1,6 +1,8 @@
+# It is a bad practice to do any model queries in views. When we remove the logic from model to some helper or presenter, we could reuse it here as simply article_with_image
 -image = posting.article_with_image
 -if image
   figure id="img_#{posting.id}"
+    // This could be moved to some partial to avoid conditional logic in our views
     img src="#{image['src']}" alt="#{image['alt'] || posting.title}" data-image="#{image['data-image']}"
 .teaser id="teaser_#{posting.id}"
   => posting_snippet(posting) # uses HTML_Truncator gem and calls .html_safe on the output
