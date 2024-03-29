@@ -2,6 +2,14 @@
 
 require 'rails_helper'
 
+# This unit test passes because it only has 1 test which focuses on positive scenario: The image is present and is single
+# image (we can't be sure only 1 image will be rendered). The image format is exactly what the code expects it to be.
+
+# I'd add a few more positive cases with diffrent image tag formats, images being in different places of the articles, etc.
+# Also, we need to test the "negative" scenario where images are not present and I'm pretty sure it will result in error.
+# I'd also randomize the content with the Faker gem to test it better.
+
+
 RSpec.describe Posting, type: :model do
   describe '.article_with_image' do
     posting_body =  "<p>Hi dear community members,</p>\r\n<p><strong>Spotlight #3</strong>"\
@@ -23,6 +31,7 @@ RSpec.describe Posting, type: :model do
 
     let(:posting) { insert :posting, body: posting_body, type: 'Article' }
 
+    # Again no test for non-Article model
     it 'should be an Article model' do
       expect(posting.type).to eq('Article')
       expect(posting.body).to eq(posting_body)
