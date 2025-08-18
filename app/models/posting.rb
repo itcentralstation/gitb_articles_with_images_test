@@ -1,34 +1,33 @@
+# frozen_string_literal: true
+
+# Base content record representing an authored, HTML-backed posting.
+# Articles, Questions, and ProductReviews inherit from this.
 class Posting < ApplicationRecord
+  belongs_to :author,    class_name: 'User', foreign_key: 'user_id' # rubocop:disable Rails/InverseOf
+  belongs_to :editor,    class_name: 'User'
 
-  belongs_to :author,    class_name: 'User', foreign_key: 'user_id'
-  belongs_to :editor,    class_name: 'User', foreign_key: 'editor_id'
-  
-  def article_with_image
-    return type if type != 'Article'
+  # Returns the first inline image found in the posting's body as a Hash of attributes,
+  # or nil if no image is found. Uses a robust HTML parser instead of brittle string scans.
+  #
+  # Example return:
+  # { 'src' => 'https://example.com/img.jpg', 'alt' => 'desc', 'data-image' => '...' }
+  #
+  # The "first" image preference:
+  # - Prefer an <img> inside the first <figure> if present
+  # - Otherwise, the first <img> in the fragment
+  def first_inline_image
+    return nil if body.blank?
 
-    figure_start = body.index('<figure')
-    figure_end = body.index('</figure>')
-    return "#{figure_start}_#{figure_end}" if figure_start.nil? || figure_end.nil?
+    fragment = Nokogiri::HTML.fragment(body)
+    img = fragment.at_css('figure img') || fragment.at_css('img')
+    return nil if img&.[]('src').blank?
 
-    image_tags = body[figure_start...figure_end + 9]
-    return 'not include <img' unless image_tags.include?('<img')
-
-    posting_image_params(image_tags)
+    { 'src' => img['src'], 'alt' => img['alt'], 'data-image' => img['data-image'] }.compact
   end
 
-  private
-
-  def posting_image_params(html)
-    tag_parse = -> (image, att) { image.match(/#{att}="(.+?)"/) }
-    tag_attributes = {}
-
-    %w[alt src data-image].each do |attribute|
-      data = tag_parse.(html, attribute)
-      unless data.nil?
-        tag_attributes[attribute] = data[1] unless data.size < 2
-      end
-    end
-    # tag_parse
-    tag_attributes
+  # Backwards-compatibility shim for any existing callers.
+  # Prefer using `first_inline_image` going forward.
+  def article_with_image
+    first_inline_image
   end
 end
