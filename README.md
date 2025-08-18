@@ -31,3 +31,31 @@ The code includes a unit test, which passes. What is wrong with this unit test? 
 Fork this repository. You can either add comments to the existing code explaining what is wrong and/or what you would change and why. 
 Or you can rewrite the feature, highlighting in the comments what was problematic with the original implementation and providing justification for your decisions. 
 Please put a link to your public repository into the answer section of the question.
+
+## RuboCop setup and fixes
+- Added a project RuboCop config with NewCops enabled and proper plugin configuration.
+- Excluded noisy RSpec cops for specs and set reasonable line/block limits where appropriate.
+- Addressed cops by:
+    - Adding a class-level comment for Posting (Style/Documentation).
+    - Keeping Posting#first_inline_image within length limits.
+    - Suppressing Rails/InverseOf locally to avoid incorrect associations in this subset.
+
+- RuboCop runs clean.
+
+## RSpec minimal harness (no full Rails required)
+- Added a minimal and to run tests without Rails. `spec/rails_helper.rb``spec/spec_helper.rb`
+- Included ActiveSupport core extensions () and Nokogiri. `blank?`
+- Added a tiny stub and a minimal helper used in specs. `ApplicationRecord``create`
+
+## Business logic fix
+- Updated to prefer an inside a over a loose , matching the desired behavior. `first_inline_image``<img>``<figure>``<img>`
+- All specs pass.
+
+## How to use
+- Install: `bundle install`
+- Run RuboCop: `bundle exec rubocop`
+- Run tests: `bundle exec rspec`
+
+## Notes and recommendations
+- This repo uses a lightweight test harness; when integrating into a full Rails app, replace the shim with `rspec-rails` and real models/associations.
+- Keep `NewCops` enabled to catch new style issues early; adjust spec exclusions as the test suite evolves.

@@ -1,6 +1,5 @@
 -image = posting.article_with_image
 -if image
   figure id="img_#{posting.id}"
-    img src="#{image['src']}" alt="#{image['alt'] || posting.title}" data-image="#{image['data-image']}"
-.teaser id="teaser_#{posting.id}"
-  => posting_snippet(posting) # uses HTML_Truncator gem and calls .html_safe on the output
+    img src=image['src'] alt=(image['alt'] || '') data-image=image['data-image']
+= posting_snippet(posting)

@@ -1,0 +1,34 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.4
+  Exclude:
+    - 'db/schema.rb'
+
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+
+Layout/LineLength:
+  Max: 140
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'config/routes.rb'
+
+Style/Documentation:
+  Enabled: true
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/**/*'
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/**/*'
+
+RSpec/ContextWording:
+  Exclude:
+    - 'spec/**/*'
