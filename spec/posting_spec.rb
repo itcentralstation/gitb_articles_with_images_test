@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Posting, type: :model do
   describe '.article_with_image' do
+    # posting body should go to Fixtures or Factories
     posting_body =  "<p>Hi dear community members,</p>\r\n<p><strong>Spotlight #3</strong>"\
                     "is our latest bi-weekly community digest for you. It covers Cybersecurity, "\
                     "IT and DevOps topics<strong>. </strong>Check it out, join discussions and share "\
@@ -23,6 +24,12 @@ RSpec.describe Posting, type: :model do
 
     let(:posting) { insert :posting, body: posting_body, type: 'Article' }
 
+    # we should test here different scenarious:
+    # 1. successfull search for the first image
+    # 2. no image in an Article
+    # 3. not an Article type
+    # 4. incorrect body (missing closing figure tag etc.)
+    # 5. few images in a body, returning only the first one.
     it 'should be an Article model' do
       expect(posting.type).to eq('Article')
       expect(posting.body).to eq(posting_body)
